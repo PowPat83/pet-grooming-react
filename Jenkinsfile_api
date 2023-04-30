@@ -1,19 +1,17 @@
 pipeline {
   agent any
     tools {
-	nodejs "npm"
+      maven 'maven3'
+                 jdk 'JDK17'
     }
-    stages {
-		stage('Cloning Git') {
-			steps {
-					git 'https://github.com/PowPat83/pet-grooming-react.git'
-			}		
-        stage('Build NPM ') {
+    stages {      
+        stage('Build maven ') {
             steps { 
                     sh 'pwd'      
-                    sh 'npm install'
+                    sh 'mvn  clean install package'
             }
-        }        
+        }
+        
         stage('Copy Artifact') {
            steps { 
                    sh 'pwd'
@@ -24,7 +22,7 @@ pipeline {
         stage('Build docker image') {
            steps {
                script {						 
-                 def customImage = docker.build('buzz83sg76/docker-test', "./docker")				
+                 def customImage = docker.build('buzz83sg76/api-gateway', "./docker")				
                  docker.withRegistry('https://registry.hub.docker.com', 'dockerhub') {
                  customImage.push("${env.BUILD_NUMBER}")
                  }                     
