@@ -51,9 +51,7 @@ function Navbar() {
                 <li className='nav-item'>
                   <NavLink
                     to='/'
-                    className={({ isActive }) =>
-                      'nav-links' + (isActive ? ' activated' : '')
-                    }
+                    className={'nav-links' + ''}
                     onClick={onLogout}
                   >
                     Logout

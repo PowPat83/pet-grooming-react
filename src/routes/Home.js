@@ -1,11 +1,11 @@
-import React from "react";
-import { AiOutlineHome } from "react-icons/ai";
+import React from 'react';
+import { AiOutlineHome } from 'react-icons/ai';
 
 function Home() {
   return (
-    <div className="home">
+    <div className='home'>
       <h1>Home</h1>
-      <AiOutlineHome className="page-icon" />
+      <AiOutlineHome className='page-icon' />
     </div>
   );
 }

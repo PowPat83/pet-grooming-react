@@ -29,6 +29,7 @@ const INITIAL_STATE = {
     -> do along with payment
 */
 
+// function to do with the server
 export const login = createAsyncThunk(
   `${LOGIN_SLICE_NAME}/login`,
   async (userForm, { dispatch }) => {
@@ -36,6 +37,7 @@ export const login = createAsyncThunk(
       const response = await axios.post(LOGIN, userForm);
       if (response.data) {
         const decoded = jwt_decode(response.data);
+        console.log('decoded ' + JSON.stringify(decoded));
         localStorage.setItem('user', JSON.stringify(decoded));
         return decoded;
       }
@@ -70,7 +72,7 @@ export const logout = createAsyncThunk(
   `${LOGIN_SLICE_NAME}/logout`,
   // async function
   async () => {
-    await localStorage.removeItem('user');
+    localStorage.removeItem('user');
   }
 );
 
@@ -91,9 +93,10 @@ export const loginSlice = createSlice({
   // it takes in bulder as the params
   // builder allows us to add cases
   // when login success, how we want to change the state
+  // state is manipulated here as a result of asyncthunk
   extraReducers: (builder) => {
     builder.addCase(register.fulfilled, (state, action) => {
-      // payload on that action
+      // payload from that action
       state.userID = action.payload.userID;
       state.isSuccess = true;
     });
@@ -108,6 +111,6 @@ export const loginSlice = createSlice({
   },
 });
 
-export const { clear_state_logout, authenticate, reset } = loginSlice.actions;
+export const { authenticate, reset } = loginSlice.actions;
 
 export default loginSlice.reducer;

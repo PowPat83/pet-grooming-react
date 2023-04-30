@@ -3,7 +3,11 @@ import { createRoot } from 'react-dom/client';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import App from './App';
+import './index.css';
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+
 // import Home from './routes/Home';
 // import LoginPage from './login/LoginPage';
 // import RegisterPage from './register/RegisterPage';
@@ -11,7 +15,9 @@ import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import './App.css';
 import store from './store';
 
-window.LOGIN_SERVICE = 'http://localhost:8080';
+const stripePromise = loadStripe(
+  'pk_test_51MwRjXKNLL3pkBrvE2TpHXXkpvct5YJYK9MtxlcbQey5Mz91nRePFrQgDUFx99TeiRC2T4o9ePoZS0nRlNkMAo2p00FIuAE8mp'
+);
 
 // const AppLayout = () => {
 //   return (
@@ -46,6 +52,9 @@ window.LOGIN_SERVICE = 'http://localhost:8080';
 // );
 ReactDOM.createRoot(document.getElementById('root')).render(
   <Provider store={store}>
-    <App />
+    {/* allow our application to use stripe within our components */}
+    <Elements stripe={stripePromise}>
+      <App />
+    </Elements>
   </Provider>
 );

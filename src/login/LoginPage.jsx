@@ -24,6 +24,7 @@ function LoginPage(props) {
     userID: loggedInUser,
     isSuccess,
     role,
+    // use useSelector((state) => state.login)
   } = useSelector(({ login }) => login);
 
   useEffect(() => {
@@ -83,7 +84,7 @@ function LoginPage(props) {
         className='link-btn'
         onClick={() => props.onFormSwitch('register')}
       >
-        Don't have an account? Register here.
+        No account? Register here.
       </button>
     </div>
   );
