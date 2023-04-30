@@ -2,11 +2,11 @@ pipeline {
   agent any
   tools {nodejs "npm" }
   stages {
-		stage('Cloning Git') {
-		  steps {
-			git 'https://github.com/PowPat83/pet-grooming-react.git'
-		  }
-		}
+    stage('Cloning Git') {
+      steps {
+        git 'https://github.com/PowPat83/pet-grooming-react.git'
+      }
+    }
 		stage('Build') {
 		   steps {
 			 sh 'npm install'
@@ -31,4 +31,3 @@ pipeline {
 	  }
     }
 	}
-}
